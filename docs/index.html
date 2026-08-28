@@ -1,63 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Content Refresh Prioritization | Pakiza Hassan</title>
+  <meta charset="UTF-8">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Content Refresh Prioritization | Pakiza Hassan
+  </title>
+
+
+  <!-- ==========================================
+       GOOGLE FONTS
+  =========================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
     rel="stylesheet"
   >
 
-  <!-- Charts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- ==========================================
+       CHART.JS
+  =========================================== -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js"
+  ></script>
+
 
   <style>
+
+    /* ==========================================
+       COLORS
+    =========================================== */
+
     :root {
+
       --teal: #749da1;
       --olive: #b4be89;
       --coral: #eb9191;
       --pink: #f5768d;
 
-      --purple: #7067e6;
-      --dark: #18212d;
-      --text: #46546a;
-      --muted: #738095;
+      --dark: #1f2933;
+      --text: #40505b;
+      --muted: #6b7b83;
 
-      --background: #f7f8fc;
+      --bg: #f7f9f8;
       --white: #ffffff;
-      --border: #e4e7ef;
+      --line: #e5ebea;
 
-      --soft-teal: #eef5f5;
-      --soft-olive: #f4f6eb;
-      --soft-coral: #fff2f2;
-      --soft-pink: #fff1f4;
-      --soft-purple: #f1f0ff;
+      --soft-teal: #edf4f4;
+      --soft-olive: #f3f5e9;
+      --soft-coral: #fff0f0;
+      --soft-pink: #fff0f4;
 
-      --shadow: 0 12px 35px rgba(31, 41, 55, 0.06);
+      --shadow:
+        0 12px 35px rgba(31, 41, 51, 0.08);
+
     }
 
+
+    /* ==========================================
+       RESET
+    =========================================== */
+
     * {
+
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+
     }
+
 
     html {
+
       scroll-behavior: smooth;
+
     }
 
+
     body {
+
       font-family: "Inter", sans-serif;
-      background: var(--background);
+
+      background: var(--bg);
+
       color: var(--text);
+
       line-height: 1.75;
+
     }
+
 
     h1,
     h2,
@@ -65,835 +116,2132 @@
     h4,
     .stat-number,
     .metric-number {
+
       font-family: "Manrope", sans-serif;
+
     }
+
 
     a {
+
       color: inherit;
+
     }
 
-    /* ==============================
-       NAVIGATION
-    ============================== */
 
-    .navbar {
+    /* ==========================================
+       NAVBAR
+    =========================================== */
+
+    .nav {
+
       position: sticky;
+
       top: 0;
+
       z-index: 1000;
-      background: rgba(255,255,255,0.95);
+
+      background:
+        rgba(255,255,255,0.96);
+
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+
+      border-bottom:
+        1px solid var(--line);
+
     }
+
 
     .nav-inner {
-      max-width: 1180px;
+
+      max-width: 1160px;
+
       margin: auto;
-      padding: 14px 24px;
+
+      padding: 14px 22px;
+
       display: flex;
-      align-items: center;
+
       justify-content: space-between;
+
+      align-items: center;
+
       gap: 30px;
+
     }
+
 
     .brand {
+
       font-family: "Manrope", sans-serif;
+
+      font-size: 15px;
+
       font-weight: 800;
-      font-size: 16px;
+
       color: var(--dark);
+
       white-space: nowrap;
+
     }
+
 
     .nav-links {
+
       display: flex;
-      gap: 22px;
+
+      gap: 20px;
+
       overflow-x: auto;
+
       scrollbar-width: none;
+
     }
+
 
     .nav-links::-webkit-scrollbar {
+
       display: none;
+
     }
 
-    .nav-links a {
+
+    .nav a {
+
       text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      color: #667187;
+
+      color: #63747c;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
       white-space: nowrap;
+
       transition: 0.2s ease;
+
     }
 
-    .nav-links a:hover {
-      color: var(--purple);
+
+    .nav a:hover {
+
+      color: var(--pink);
+
     }
 
-    /* ==============================
+
+    /* ==========================================
        HERO
-    ============================== */
+    =========================================== */
 
     .hero {
+
       position: relative;
+
       overflow: hidden;
+
       background:
+
         radial-gradient(
-          circle at 15% 15%,
-          rgba(112, 103, 230, 0.10),
+          circle at 10% 15%,
+          rgba(180,190,137,0.28),
           transparent 35%
         ),
+
         radial-gradient(
-          circle at 90% 15%,
-          rgba(245, 118, 141, 0.10),
-          transparent 30%
+          circle at 90% 20%,
+          rgba(245,118,141,0.17),
+          transparent 33%
         ),
+
         radial-gradient(
-          circle at 80% 90%,
-          rgba(116, 157, 161, 0.13),
-          transparent 35%
+          circle at 85% 90%,
+          rgba(116,157,161,0.25),
+          transparent 40%
         ),
-        #fbfbff;
-      border-bottom: 1px solid var(--border);
+
+        linear-gradient(
+          135deg,
+          #f7fbfa 0%,
+          #ffffff 52%,
+          #fff7f8 100%
+        );
+
+      border-bottom:
+        1px solid var(--line);
+
     }
+
 
     .hero-inner {
-      max-width: 1180px;
+
+      max-width: 1160px;
+
       margin: auto;
-      padding: 78px 24px 70px;
+
+      padding:
+        82px 22px 75px;
+
     }
 
-    .eyebrow {
+
+    .hero-badge {
+
       display: inline-flex;
+
       align-items: center;
-      gap: 8px;
-      color: var(--purple);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
+
+      gap: 9px;
+
+      padding:
+        8px 14px;
+
+      border-radius:
+        999px;
+
+      background:
+        rgba(255,255,255,0.85);
+
+      border:
+        1px solid
+        rgba(116,157,161,0.30);
+
+      box-shadow:
+        0 5px 20px
+        rgba(31,41,51,0.05);
+
+      font-size:
+        11px;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        1.4px;
+
+      text-transform:
+        uppercase;
+
+      color:
+        #54797d;
+
+      margin-bottom:
+        24px;
+
     }
 
-    .eyebrow-dot {
+
+    .hero-badge-dot {
+
       width: 8px;
+
       height: 8px;
-      border-radius: 50%;
-      background: var(--pink);
+
+      border-radius:
+        50%;
+
+      background:
+        var(--pink);
+
     }
+
 
     .hero h1 {
-      max-width: 900px;
-      font-size: clamp(45px, 6vw, 74px);
-      font-weight: 800;
-      line-height: 1.03;
-      letter-spacing: -3px;
-      color: var(--dark);
-      margin-bottom: 14px;
+
+      max-width:
+        900px;
+
+      color:
+        var(--dark);
+
+      font-size:
+        clamp(
+          46px,
+          6vw,
+          72px
+        );
+
+      font-weight:
+        800;
+
+      line-height:
+        1.04;
+
+      letter-spacing:
+        -3px;
+
+      margin-bottom:
+        14px;
+
     }
+
 
     .hero h1 span {
-      color: var(--purple);
+
+      color:
+        var(--teal);
+
     }
+
 
     .hero-subtitle {
-      font-family: "Manrope", sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--teal);
-      margin-bottom: 16px;
+
+      font-family:
+        "Manrope",
+        sans-serif;
+
+      font-size:
+        18px;
+
+      font-weight:
+        700;
+
+      color:
+        var(--pink);
+
+      margin-bottom:
+        15px;
+
     }
+
 
     .hero-description {
-      max-width: 860px;
-      font-size: 17px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 30px;
+
+      max-width:
+        850px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        17px;
+
+      line-height:
+        1.8;
+
+      margin-bottom:
+        28px;
+
     }
+
+
+    /* ==========================================
+       RESEARCH QUESTION
+    =========================================== */
 
     .research-question {
-      max-width: 970px;
-      padding: 20px 23px;
-      background: rgba(112,103,230,0.08);
-      border-left: 4px solid var(--purple);
-      border-radius: 12px;
-      color: #3c4560;
-      margin-bottom: 30px;
+
+      max-width:
+        940px;
+
+      padding:
+        20px 23px;
+
+      margin-bottom:
+        30px;
+
+      background:
+        var(--soft-teal);
+
+      border-left:
+        5px solid
+        var(--teal);
+
+      border-radius:
+        0 15px 15px 0;
+
+      color:
+        #52636c;
+
     }
+
 
     .research-question strong {
-      color: var(--dark);
+
+      color:
+        var(--dark);
+
     }
 
-    .profile-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+
+    /* ==========================================
+       PROFILE DETAILS
+    =========================================== */
+
+    .researcher-grid {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          4,
+          1fr
+        );
+
+      gap:
+        15px;
+
+      max-width:
+        1000px;
+
     }
 
-    .profile-card {
-      background: rgba(255,255,255,0.9);
-      border: 1px solid var(--border);
-      padding: 20px;
-      border-radius: 17px;
-      box-shadow: 0 8px 20px rgba(30,40,60,0.04);
+
+    .researcher-card {
+
+      padding:
+        21px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.88
+        );
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        17px;
+
+      box-shadow:
+        0 7px 22px
+        rgba(
+          31,
+          41,
+          51,
+          0.05
+        );
+
     }
 
-    .profile-card small {
-      display: block;
-      text-transform: uppercase;
-      font-size: 10px;
-      letter-spacing: 1px;
-      font-weight: 800;
-      color: #929caf;
-      margin-bottom: 7px;
+
+    .researcher-card small {
+
+      display:
+        block;
+
+      margin-bottom:
+        6px;
+
+      color:
+        #8a989e;
+
+      font-size:
+        10px;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        1px;
+
+      text-transform:
+        uppercase;
+
     }
 
-    .profile-card strong {
-      display: block;
-      font-family: "Manrope", sans-serif;
-      color: var(--dark);
-      font-size: 15px;
+
+    .researcher-card strong {
+
+      color:
+        var(--dark);
+
+      font-family:
+        "Manrope",
+        sans-serif;
+
+      font-size:
+        14px;
+
     }
 
-    /* ==============================
+
+    /* ==========================================
        GENERAL SECTIONS
-    ============================== */
+    =========================================== */
 
     .container {
-      max-width: 1180px;
-      margin: auto;
-      padding: 66px 24px;
+
+      max-width:
+        1160px;
+
+      margin:
+        auto;
+
+      padding:
+        65px 22px;
+
     }
+
 
     section {
-      scroll-margin-top: 65px;
+
+      scroll-margin-top:
+        65px;
+
     }
+
 
     .section-label {
-      display: block;
-      color: var(--purple);
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 1.8px;
-      font-weight: 800;
-      margin-bottom: 8px;
+
+      display:
+        inline-block;
+
+      color:
+        var(--pink);
+
+      font-size:
+        11px;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        1.7px;
+
+      text-transform:
+        uppercase;
+
+      margin-bottom:
+        8px;
+
     }
+
 
     h2 {
-      font-size: clamp(30px, 4vw, 40px);
-      line-height: 1.15;
-      letter-spacing: -1.6px;
-      font-weight: 800;
-      color: var(--dark);
-      margin-bottom: 12px;
+
+      color:
+        var(--dark);
+
+      font-size:
+        clamp(
+          29px,
+          4vw,
+          38px
+        );
+
+      font-weight:
+        800;
+
+      line-height:
+        1.15;
+
+      letter-spacing:
+        -1.4px;
+
+      margin-bottom:
+        10px;
+
     }
+
 
     h3 {
-      color: var(--dark);
-      font-size: 18px;
-      font-weight: 750;
-      line-height: 1.3;
+
+      color:
+        var(--dark);
+
+      font-size:
+        18px;
+
+      font-weight:
+        700;
+
+      letter-spacing:
+        -0.3px;
+
+      margin-bottom:
+        9px;
+
     }
+
+
+    p {
+
+      margin-bottom:
+        14px;
+
+    }
+
 
     .section-description {
-      max-width: 900px;
-      color: var(--muted);
-      font-size: 16px;
-      margin-bottom: 28px;
+
+      max-width:
+        900px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        16px;
+
+      line-height:
+        1.8;
+
+      margin-bottom:
+        22px;
+
     }
+
 
     .divider {
-      width: 56px;
-      height: 4px;
-      border-radius: 20px;
-      background: linear-gradient(
-        90deg,
-        var(--purple),
-        var(--pink)
-      );
-      margin: 18px 0 28px;
+
+      width:
+        55px;
+
+      height:
+        4px;
+
+      border-radius:
+        20px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--teal),
+          var(--pink)
+        );
+
+      margin:
+        18px 0 28px;
+
     }
 
-    /* ==============================
+
+    /* ==========================================
        ABSTRACT
-    ============================== */
+    =========================================== */
 
     .abstract-box {
-      padding: 32px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-left: 5px solid var(--purple);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
+
+      padding:
+        31px;
+
+      background:
+        var(--white);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-left:
+        5px solid
+        var(--teal);
+
+      border-radius:
+        0 18px 18px 0;
+
+      box-shadow:
+        var(--shadow);
+
     }
 
-    .abstract-box p + p {
-      margin-top: 13px;
+
+    .abstract-box p:last-child {
+
+      margin-bottom:
+        0;
+
     }
 
-    /* ==============================
+
+    /* ==========================================
        STATS
-    ============================== */
+    =========================================== */
 
     .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin: 30px 0 38px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          4,
+          1fr
+        );
+
+      gap:
+        17px;
+
+      margin:
+        30px 0;
+
     }
+
 
     .stat-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 7px 20px rgba(30,40,60,0.04);
+
+      background:
+        var(--white);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        18px;
+
+      padding:
+        23px;
+
+      box-shadow:
+        0 8px 25px
+        rgba(
+          31,
+          41,
+          51,
+          0.05
+        );
+
     }
+
 
     .stat-card:nth-child(1) {
-      border-top: 4px solid var(--purple);
+
+      border-top:
+        5px solid
+        var(--teal);
+
     }
+
 
     .stat-card:nth-child(2) {
-      border-top: 4px solid var(--teal);
+
+      border-top:
+        5px solid
+        var(--olive);
+
     }
+
 
     .stat-card:nth-child(3) {
-      border-top: 4px solid var(--olive);
+
+      border-top:
+        5px solid
+        var(--coral);
+
     }
+
 
     .stat-card:nth-child(4) {
-      border-top: 4px solid var(--pink);
+
+      border-top:
+        5px solid
+        var(--pink);
+
     }
+
 
     .stat-number {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--dark);
+
+      font-size:
+        28px;
+
+      font-weight:
+        800;
+
+      color:
+        var(--dark);
+
     }
+
 
     .stat-label {
-      margin-top: 4px;
-      font-size: 13px;
-      color: var(--muted);
+
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
+
+      margin-top:
+        4px;
+
     }
 
-    /* ==============================
-       INFORMATION CARDS
-    ============================== */
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin: 30px 0;
+    /* ==========================================
+       DATA SIGNAL CARDS
+    =========================================== */
+
+    .signal-grid {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          4,
+          1fr
+        );
+
+      gap:
+        15px;
+
+      margin:
+        28px 0 35px;
+
     }
 
-    .info-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      padding: 21px;
-      border-radius: 17px;
+
+    .signal-card {
+
+      background:
+        var(--white);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        17px;
+
+      padding:
+        21px;
+
     }
 
-    .info-card span {
-      display: block;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--pink);
-      margin-bottom: 8px;
+
+    .signal-card span {
+
+      display:
+        block;
+
+      color:
+        var(--pink);
+
+      font-size:
+        10px;
+
+      font-weight:
+        800;
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        1px;
+
+      margin-bottom:
+        7px;
+
     }
 
-    .info-card h3 {
-      margin-bottom: 8px;
+
+    .signal-card p {
+
+      font-size:
+        13px;
+
+      color:
+        var(--muted);
+
+      line-height:
+        1.65;
+
+      margin-bottom:
+        0;
+
     }
 
-    .info-card p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
 
-    /* ==============================
+    /* ==========================================
        CHARTS
-    ============================== */
+    =========================================== */
 
     .charts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      margin-top: 30px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:
+        24px;
+
+      margin-top:
+        32px;
+
     }
+
 
     .chart-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: var(--shadow);
+
+      background:
+        var(--white);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        21px;
+
+      padding:
+        25px;
+
+      box-shadow:
+        var(--shadow);
+
     }
+
 
     .chart-card h3 {
-      margin-bottom: 7px;
+
+      font-size:
+        17px;
+
     }
+
 
     .chart-card p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 20px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
+
+      line-height:
+        1.65;
+
+      margin-bottom:
+        20px;
+
     }
 
-    .chart-wrapper {
-      position: relative;
-      min-height: 330px;
+
+    .chart-wrap {
+
+      position:
+        relative;
+
+      min-height:
+        330px;
+
     }
 
-    /* ==============================
-       METHOD
-    ============================== */
+
+    /* ==========================================
+       METHODOLOGY
+    =========================================== */
 
     .method-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-top: 28px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          4,
+          1fr
+        );
+
+      gap:
+        15px;
+
+      margin-top:
+        28px;
+
     }
+
 
     .method-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      padding: 22px;
-      border-radius: 18px;
+
+      padding:
+        23px;
+
+      background:
+        var(--white);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        18px;
+
     }
+
 
     .method-number {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border-radius: 11px;
-      background: var(--soft-purple);
-      color: var(--purple);
-      font-family: "Manrope", sans-serif;
-      font-weight: 800;
-      margin-bottom: 15px;
+
+      width:
+        39px;
+
+      height:
+        39px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      margin-bottom:
+        14px;
+
+      border-radius:
+        11px;
+
+      background:
+        var(--soft-teal);
+
+      color:
+        var(--teal);
+
+      font-family:
+        "Manrope",
+        sans-serif;
+
+      font-weight:
+        800;
+
     }
 
-    .method-card h3 {
-      margin-bottom: 8px;
-    }
 
     .method-card p {
-      color: var(--muted);
-      font-size: 13px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
+
+      line-height:
+        1.65;
+
+      margin-bottom:
+        0;
+
     }
+
+
+    /* ==========================================
+       FEATURE TAGS
+    =========================================== */
 
     .feature-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin: 25px 0;
+
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        9px;
+
+      margin:
+        20px 0 28px;
+
     }
 
-    .feature-tag {
-      background: var(--soft-teal);
-      color: #4d7478;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-family: monospace;
-      font-weight: 700;
+
+    .feature {
+
+      padding:
+        8px 12px;
+
+      border-radius:
+        8px;
+
+      background:
+        var(--soft-teal);
+
+      color:
+        #496d70;
+
+      font-family:
+        monospace;
+
+      font-size:
+        11px;
+
+      font-weight:
+        700;
+
     }
 
-    /* ==============================
+
+    /* ==========================================
+       INFORMATION BOX
+    =========================================== */
+
+    .info-box {
+
+      padding:
+        22px;
+
+      background:
+        var(--white);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-left:
+        5px solid
+        var(--pink);
+
+      border-radius:
+        15px;
+
+      margin-top:
+        24px;
+
+    }
+
+
+    .info-box p {
+
+      color:
+        var(--muted);
+
+      font-size:
+        14px;
+
+      margin-bottom:
+        0;
+
+    }
+
+
+    /* ==========================================
        METRICS
-    ============================== */
+    =========================================== */
 
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin: 30px 0;
+    .metric-grid {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          4,
+          1fr
+        );
+
+      gap:
+        15px;
+
+      margin:
+        30px 0;
+
     }
 
-    .metric-card {
-      text-align: center;
-      border-radius: 18px;
-      padding: 24px 14px;
+
+    .metric {
+
+      text-align:
+        center;
+
+      padding:
+        25px 15px;
+
+      border-radius:
+        18px;
+
     }
 
-    .metric-card:nth-child(1) {
-      background: var(--soft-purple);
+
+    .metric:nth-child(1) {
+
+      background:
+        var(--soft-teal);
+
     }
 
-    .metric-card:nth-child(2) {
-      background: var(--soft-olive);
+
+    .metric:nth-child(2) {
+
+      background:
+        var(--soft-olive);
+
     }
 
-    .metric-card:nth-child(3) {
-      background: var(--soft-coral);
+
+    .metric:nth-child(3) {
+
+      background:
+        var(--soft-coral);
+
     }
 
-    .metric-card:nth-child(4) {
-      background: var(--soft-pink);
+
+    .metric:nth-child(4) {
+
+      background:
+        var(--soft-pink);
+
     }
+
 
     .metric-number {
-      display: block;
-      font-size: 30px;
-      color: var(--dark);
-      font-weight: 800;
+
+      display:
+        block;
+
+      font-size:
+        29px;
+
+      color:
+        var(--dark);
+
+      font-weight:
+        800;
+
     }
+
 
     .metric-name {
-      display: block;
-      margin-top: 3px;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      font-weight: 700;
-      font-size: 11px;
-      color: var(--muted);
+
+      display:
+        block;
+
+      color:
+        var(--muted);
+
+      font-size:
+        11px;
+
+      font-weight:
+        700;
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        0.7px;
+
     }
 
-    /* ==============================
+
+    /* ==========================================
        RESULT INSIGHT
-    ============================== */
+    =========================================== */
 
     .result-insight {
-      margin-top: 28px;
-      padding: 27px;
-      border-radius: 19px;
+
+      margin-top:
+        28px;
+
+      padding:
+        26px;
+
+      border-radius:
+        18px;
+
       background:
         linear-gradient(
           135deg,
-          rgba(116,157,161,0.12),
-          rgba(180,190,137,0.14)
+          rgba(
+            116,
+            157,
+            161,
+            0.13
+          ),
+          rgba(
+            180,
+            190,
+            137,
+            0.14
+          )
         );
-      border: 1px solid rgba(116,157,161,0.2);
+
+      border:
+        1px solid
+        rgba(
+          116,
+          157,
+          161,
+          0.20
+        );
+
     }
+
 
     .result-insight span {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.3px;
-      text-transform: uppercase;
-      color: var(--teal);
+
+      display:
+        block;
+
+      color:
+        var(--teal);
+
+      font-size:
+        10px;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        1.2px;
+
+      text-transform:
+        uppercase;
+
+      margin-bottom:
+        6px;
+
     }
+
 
     .result-insight h3 {
-      font-size: 22px;
-      margin: 7px 0;
+
+      font-size:
+        21px;
+
     }
+
 
     .result-insight p {
-      max-width: 880px;
-      color: #5b6879;
+
+      color:
+        #5d6c74;
+
+      max-width:
+        850px;
+
+      margin-bottom:
+        0;
+
     }
 
-    /* ==============================
+
+    /* ==========================================
        CONFUSION MATRIX
-    ============================== */
+    =========================================== */
 
     .matrix-wrapper {
-      max-width: 560px;
-      margin: 32px auto;
+
+      max-width:
+        540px;
+
+      margin:
+        30px auto;
+
     }
+
 
     .matrix-title {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--muted);
-      margin-bottom: 10px;
+
+      text-align:
+        center;
+
+      color:
+        var(--muted);
+
+      font-size:
+        12px;
+
+      font-weight:
+        700;
+
+      margin-bottom:
+        9px;
+
     }
+
 
     .matrix {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:
+        8px;
+
     }
+
 
     .matrix-cell {
-      padding: 26px 14px;
-      text-align: center;
-      border-radius: 15px;
+
+      text-align:
+        center;
+
+      padding:
+        26px 14px;
+
+      border-radius:
+        15px;
+
     }
+
 
     .matrix-cell strong {
-      display: block;
-      font-family: "Manrope", sans-serif;
-      font-size: 27px;
-      color: var(--dark);
+
+      display:
+        block;
+
+      font-family:
+        "Manrope",
+        sans-serif;
+
+      color:
+        var(--dark);
+
+      font-size:
+        27px;
+
     }
+
 
     .matrix-cell span {
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: var(--muted);
+
+      display:
+        block;
+
+      color:
+        var(--muted);
+
+      font-size:
+        10px;
+
+      font-weight:
+        800;
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        0.7px;
+
+      margin-top:
+        4px;
+
     }
 
-    .tn { background: var(--soft-olive); }
-    .fp { background: #fff8e9; }
-    .fn { background: var(--soft-coral); }
-    .tp { background: var(--soft-teal); }
 
-    /* ==============================
-       ACTIONS
-    ============================== */
+    .tn {
 
-    .explanation-card {
-      padding: 24px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-left: 5px solid var(--pink);
-      border-radius: 17px;
-      margin: 28px 0;
+      background:
+        var(--soft-olive);
+
     }
 
-    .explanation-card h3 {
-      margin-bottom: 9px;
+
+    .fp {
+
+      background:
+        #fff8e8;
+
     }
 
-    .explanation-card p {
-      font-size: 14px;
-      color: var(--muted);
+
+    .fn {
+
+      background:
+        var(--soft-coral);
+
     }
 
-    .priority-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin: 28px 0;
+
+    .tp {
+
+      background:
+        var(--soft-teal);
+
     }
 
-    .priority-card {
-      border-radius: 18px;
-      padding: 24px;
+
+    /* ==========================================
+       RANKED QUEUE
+    =========================================== */
+
+    .ranked-status {
+
+      margin:
+        26px 0 16px;
+
+      padding:
+        16px 18px;
+
+      border-radius:
+        13px;
+
+      background:
+        #e6f8ed;
+
+      color:
+        #2d7d4d;
+
+      font-size:
+        14px;
+
+      border:
+        1px solid
+        #d0f0dc;
+
     }
 
-    .priority-card h3 {
-      margin-bottom: 7px;
+
+    .table-wrapper {
+
+      overflow-x:
+        auto;
+
+      background:
+        var(--white);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        18px;
+
+      box-shadow:
+        0 8px 25px
+        rgba(
+          31,
+          41,
+          51,
+          0.04
+        );
+
     }
 
-    .priority-card strong {
-      display: block;
-      font-family: "Manrope", sans-serif;
-      font-size: 25px;
-      margin: 10px 0 4px;
-      color: var(--dark);
+
+    .ranked-table {
+
+      width:
+        100%;
+
+      min-width:
+        820px;
+
+      border-collapse:
+        collapse;
+
     }
 
-    .priority-card p {
-      font-size: 13px;
-      color: var(--muted);
+
+    .ranked-table thead {
+
+      background:
+        #fafbfb;
+
     }
 
-    .review-card {
-      background: var(--soft-pink);
+
+    .ranked-table th {
+
+      text-align:
+        left;
+
+      padding:
+        15px 17px;
+
+      border-bottom:
+        1px solid
+        var(--line);
+
+      color:
+        var(--dark);
+
+      font-family:
+        "Manrope",
+        sans-serif;
+
+      font-size:
+        11px;
+
+      font-weight:
+        800;
+
     }
 
-    .monitor-card {
-      background: var(--soft-olive);
+
+    .ranked-table td {
+
+      padding:
+        17px;
+
+      border-bottom:
+        1px solid
+        var(--line);
+
+      color:
+        var(--text);
+
+      font-size:
+        13px;
+
+      vertical-align:
+        middle;
+
     }
 
-    .low-card {
-      background: var(--soft-teal);
+
+    .ranked-table tbody tr:last-child td {
+
+      border-bottom:
+        none;
+
     }
+
+
+    .ranked-table tbody tr:hover {
+
+      background:
+        #fbfcfc;
+
+    }
+
+
+    .rank-number {
+
+      display:
+        inline-grid;
+
+      place-items:
+        center;
+
+      width:
+        34px;
+
+      height:
+        34px;
+
+      border-radius:
+        10px;
+
+      font-family:
+        "Manrope",
+        sans-serif;
+
+      font-weight:
+        800;
+
+    }
+
+
+    .rank-one {
+
+      background:
+        var(--soft-pink);
+
+    }
+
+
+    .rank-two {
+
+      background:
+        var(--soft-olive);
+
+    }
+
+
+    .rank-three {
+
+      background:
+        var(--soft-teal);
+
+    }
+
+
+    .action-badge {
+
+      display:
+        inline-block;
+
+      padding:
+        7px 12px;
+
+      border-radius:
+        999px;
+
+      font-size:
+        10px;
+
+      font-weight:
+        800;
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    .review {
+
+      background:
+        var(--soft-pink);
+
+      color:
+        #c85f70;
+
+    }
+
+
+    .monitor {
+
+      background:
+        var(--soft-olive);
+
+      color:
+        #768249;
+
+    }
+
+
+    .lower {
+
+      background:
+        var(--soft-teal);
+
+      color:
+        #50787b;
+
+    }
+
+
+    .page-count {
+
+      font-family:
+        "Manrope",
+        sans-serif;
+
+      font-weight:
+        800;
+
+      color:
+        var(--dark);
+
+    }
+
+
+    .threshold {
+
+      font-family:
+        monospace;
+
+      font-weight:
+        700;
+
+      color:
+        var(--dark);
+
+    }
+
+
+    /* ==========================================
+       REASON CODES
+    =========================================== */
 
     .reason-codes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 20px;
+
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        9px;
+
+      margin:
+        20px 0;
+
     }
 
-    .reason-code {
-      padding: 8px 11px;
-      background: var(--soft-purple);
-      color: #5d56c6;
-      border-radius: 8px;
-      font-size: 11px;
-      font-family: monospace;
-      font-weight: 700;
+
+    .reason {
+
+      padding:
+        8px 12px;
+
+      border-radius:
+        8px;
+
+      background:
+        var(--soft-teal);
+
+      color:
+        #496d70;
+
+      font-size:
+        11px;
+
+      font-family:
+        monospace;
+
+      font-weight:
+        700;
+
     }
 
-    /* ==============================
+
+    /* ==========================================
        LIMITATIONS
-    ============================== */
+    =========================================== */
 
-    .limitations-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-top: 27px;
+    .limitations {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:
+        14px;
+
+      margin-top:
+        25px;
+
     }
 
-    .limitation-card {
-      background: #fffafa;
-      border: 1px solid #f1dfe1;
-      border-radius: 16px;
-      padding: 20px;
+
+    .limit {
+
+      padding:
+        20px;
+
+      background:
+        #fffafa;
+
+      border:
+        1px solid
+        #f1dcdc;
+
+      border-radius:
+        15px;
+
+      font-size:
+        13px;
+
+      color:
+        var(--muted);
+
     }
 
-    .limitation-card strong {
-      display: block;
-      color: #c45868;
-      margin-bottom: 5px;
+
+    .limit strong {
+
+      display:
+        block;
+
+      color:
+        #c85f70;
+
+      margin-bottom:
+        5px;
+
     }
 
-    .limitation-card p {
-      font-size: 13px;
-      color: var(--muted);
-    }
 
-    /* ==============================
+    /* ==========================================
        TAKEAWAY
-    ============================== */
+    =========================================== */
 
     .takeaway {
+
+      padding:
+        40px;
+
+      border-radius:
+        24px;
+
       background:
         linear-gradient(
           135deg,
-          #615ad3,
-          #749da1
+          #5f8589 0%,
+          var(--teal) 55%,
+          #79989a 100%
         );
-      border-radius: 24px;
-      padding: 38px;
-      color: white;
+
+      color:
+        white;
+
     }
+
 
     .takeaway h2 {
-      color: white;
-      margin-bottom: 14px;
+
+      color:
+        white;
+
     }
+
 
     .takeaway p {
-      color: rgba(255,255,255,0.88);
-      max-width: 900px;
-      margin-top: 9px;
+
+      max-width:
+        900px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.88
+        );
+
     }
 
-    /* ==============================
+
+    /* ==========================================
        REPRODUCIBILITY
-    ============================== */
+    =========================================== */
 
     .link-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      padding: 22px;
-      margin-top: 15px;
+
+      margin-top:
+        15px;
+
+      padding:
+        21px;
+
+      background:
+        var(--white);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        16px;
+
     }
+
 
     .link-card a {
-      text-decoration: none;
-      color: var(--purple);
-      font-weight: 700;
+
+      color:
+        var(--teal);
+
+      font-weight:
+        700;
+
+      text-decoration:
+        none;
+
     }
 
-    /* ==============================
+
+    .link-card a:hover {
+
+      text-decoration:
+        underline;
+
+    }
+
+
+    /* ==========================================
        FOOTER
-    ============================== */
+    =========================================== */
 
     footer {
-      padding: 40px 20px;
-      text-align: center;
-      background: #18212d;
-      color: #aeb8c6;
-      font-size: 13px;
+
+      padding:
+        40px 20px;
+
+      background:
+        #202b30;
+
+      text-align:
+        center;
+
+      color:
+        #aab7bc;
+
+      font-size:
+        13px;
+
     }
+
 
     footer strong {
-      color: white;
-      font-family: "Manrope", sans-serif;
+
+      color:
+        white;
+
+      font-family:
+        "Manrope",
+        sans-serif;
+
     }
 
-    /* ==============================
-       RESPONSIVE
-    ============================== */
 
-    @media (max-width: 950px) {
-      .profile-grid,
+    /* ==========================================
+       RESPONSIVE
+    =========================================== */
+
+    @media (
+      max-width: 950px
+    ) {
+
+      .researcher-grid,
       .stats-grid,
-      .info-grid,
+      .signal-grid,
       .method-grid,
-      .metrics-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .metric-grid {
+
+        grid-template-columns:
+          repeat(
+            2,
+            1fr
+          );
+
       }
+
 
       .charts-grid,
-      .limitations-grid {
-        grid-template-columns: 1fr;
+      .limitations {
+
+        grid-template-columns:
+          1fr;
+
       }
 
-      .priority-grid {
-        grid-template-columns: 1fr;
-      }
     }
 
-    @media (max-width: 650px) {
+
+    @media (
+      max-width: 650px
+    ) {
+
       .nav-inner {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 8px;
+
+        flex-direction:
+          column;
+
+        align-items:
+          flex-start;
+
+        gap:
+          8px;
+
       }
+
 
       .nav-links {
-        width: 100%;
+
+        width:
+          100%;
+
       }
+
 
       .hero-inner {
-        padding-top: 55px;
+
+        padding-top:
+          55px;
+
       }
+
 
       .hero h1 {
-        letter-spacing: -2px;
+
+        font-size:
+          40px;
+
+        letter-spacing:
+          -2px;
+
       }
 
-      .profile-grid,
+
+      .researcher-grid,
       .stats-grid,
-      .info-grid,
+      .signal-grid,
       .method-grid,
-      .metrics-grid {
-        grid-template-columns: 1fr;
+      .metric-grid {
+
+        grid-template-columns:
+          1fr;
+
       }
+
 
       .container {
-        padding: 50px 18px;
+
+        padding:
+          50px 18px;
+
       }
+
+
+      .takeaway {
+
+        padding:
+          28px;
+
+      }
+
     }
+
   </style>
+
 </head>
 
 
 <body>
 
+
 <!-- ==========================================
      NAVBAR
 ========================================== -->
 
-<nav class="navbar">
+<nav class="nav">
+
   <div class="nav-inner">
 
     <div class="brand">
+
       Content Refresh Research
+
     </div>
 
+
     <div class="nav-links">
-      <a href="#abstract">Abstract</a>
-      <a href="#problem">Problem</a>
-      <a href="#data">Data</a>
-      <a href="#method">Method</a>
-      <a href="#results">Results</a>
-      <a href="#actions">Actions</a>
-      <a href="#limitations">Limitations</a>
-      <a href="#reproducibility">Reproducibility</a>
+
+      <a href="#abstract">
+        Abstract
+      </a>
+
+      <a href="#problem">
+        Problem
+      </a>
+
+      <a href="#data">
+        Data
+      </a>
+
+      <a href="#method">
+        Method
+      </a>
+
+      <a href="#results">
+        Results
+      </a>
+
+      <a href="#recommendations">
+        Recommendations
+      </a>
+
+      <a href="#limitations">
+        Limitations
+      </a>
+
+      <a href="#reproducibility">
+        Reproducibility
+      </a>
+
     </div>
 
   </div>
+
 </nav>
 
 
@@ -905,54 +2253,111 @@
 
   <div class="hero-inner">
 
-    <div class="eyebrow">
-      <span class="eyebrow-dot"></span>
+
+    <div class="hero-badge">
+
+      <span class="hero-badge-dot"></span>
+
       FlyRank ML Internship • Capstone Research
+
     </div>
+
 
     <h1>
+
       Content Refresh
-      <span>Prioritization</span>
+      <span>
+        Prioritization
+      </span>
+
     </h1>
 
+
     <div class="hero-subtitle">
+
       Machine Learning Decision-Support for Content Review
+
     </div>
+
 
     <p class="hero-description">
-      A time-aware machine learning workflow for identifying content pages
-      showing measurable future-decline signals and ranking them for human
-      review using historical search visibility and engagement data.
+
+      A time-aware machine learning study that identifies
+      measurable future-decline signals and converts them into
+      an interpretable ranked review queue using historical
+      search visibility and engagement measurements.
+
     </p>
 
+
     <div class="research-question">
-      <strong>Research Question:</strong>
-      Which content pages show the strongest measurable signals of future
-      decline, and how can those pages be ranked for human review using
-      historical search and engagement data?
+
+      <strong>
+        Research Question:
+      </strong>
+
+      Which content pages show the strongest measurable signals
+      of refresh opportunity, and how can those pages be ranked
+      for human review using historical search and engagement
+      data?
+
     </div>
 
-    <div class="profile-grid">
 
-      <div class="profile-card">
-        <small>Researcher</small>
-        <strong>Pakiza Hassan</strong>
+    <div class="researcher-grid">
+
+
+      <div class="researcher-card">
+
+        <small>
+          Researcher
+        </small>
+
+        <strong>
+          Pakiza Hassan
+        </strong>
+
       </div>
 
-      <div class="profile-card">
-        <small>Degree</small>
-        <strong>BS Artificial Intelligence</strong>
+
+      <div class="researcher-card">
+
+        <small>
+          Degree
+        </small>
+
+        <strong>
+          BS Artificial Intelligence
+        </strong>
+
       </div>
 
-      <div class="profile-card">
-        <small>Program</small>
-        <strong>FlyRank ML Internship</strong>
+
+      <div class="researcher-card">
+
+        <small>
+          Program
+        </small>
+
+        <strong>
+          FlyRank Machine Learning Internship
+        </strong>
+
       </div>
 
-      <div class="profile-card">
-        <small>Research Area</small>
-        <strong>Machine Learning × Search Analytics</strong>
+
+      <div class="researcher-card">
+
+        <small>
+          Research Area
+        </small>
+
+        <strong>
+          Machine Learning × Search Analytics
+        </strong>
+
       </div>
+
 
     </div>
 
@@ -965,46 +2370,83 @@
      ABSTRACT
 ========================================== -->
 
-<section id="abstract" class="container">
+<section
+  id="abstract"
+  class="container"
+>
 
   <span class="section-label">
+
     Research Summary
+
   </span>
 
+
   <h2>
+
     Abstract
+
   </h2>
+
 
   <div class="divider"></div>
 
+
   <div class="abstract-box">
 
-    <p>
-      This research investigates whether historical search and engagement
-      signals can help identify content pages that deserve earlier human
-      review because they later experience a substantial decline in search
-      visibility.
-    </p>
 
     <p>
-      Using March 2026 FlyRank internship warehouse data, the workflow
-      separates historical features from future outcomes, applies
-      client-grouped validation, audits potential leakage, trains an
-      interpretable Decision Tree classifier, and converts predicted
-      decline-risk probabilities into a ranked review queue.
+
+      This research investigates whether historical search and
+      engagement signals can help identify content pages that
+      deserve earlier human review because they later experience
+      substantial declines in search visibility.
+
     </p>
 
+
     <p>
+
+      Using March 2026 FlyRank internship warehouse data, the
+      workflow separates historical features from future
+      outcomes, applies client-grouped validation, audits
+      potential leakage, trains an interpretable Decision Tree
+      classifier, and converts predicted decline-risk
+      probabilities into a ranked content-review queue.
+
+    </p>
+
+
+    <p>
+
       The final model achieved
-      <strong>72.71% accuracy</strong>,
-      <strong>57.98% precision</strong>,
-      <strong>12.71% recall</strong>,
-      and a
-      <strong>20.85% F1 score</strong>
+
+      <strong>
+        72.71% accuracy
+      </strong>,
+
+      <strong>
+        57.98% precision
+      </strong>,
+
+      <strong>
+        12.71% recall
+      </strong>
+
+      and an
+
+      <strong>
+        F1 score of 20.85%
+      </strong>
+
       on held-out clients.
-      Results are interpreted as directional decision-support rather than
-      proof that a particular page requires refreshing.
+
+      The results are interpreted as directional
+      decision-support rather than proof that an individual page
+      requires refreshing.
+
     </p>
+
 
   </div>
 
@@ -1015,37 +2457,58 @@
      PROBLEM
 ========================================== -->
 
-<section id="problem" class="container">
+<section
+  id="problem"
+  class="container"
+>
 
   <span class="section-label">
+
     01 — Research Problem
+
   </span>
 
+
   <h2>
+
     Prioritizing Content Review at Scale
+
   </h2>
 
+
   <p class="section-description">
-    Large content portfolios can contain thousands of pages, making it
-    difficult for content teams to inspect every page equally.
-    Machine learning can support this workflow by highlighting pages with
-    stronger measured risk signals while leaving the final editorial
-    decision with human reviewers.
+
+    Large content portfolios can contain thousands of pages,
+    making it difficult for content teams to manually review
+    everything with equal attention. This research evaluates
+    whether historical performance signals can help identify a
+    smaller set of pages that deserve earlier investigation.
+
   </p>
+
 
   <div class="divider"></div>
 
-  <div class="explanation-card">
+
+  <div class="info-box">
 
     <h3>
+
       Decision to Support
+
     </h3>
 
+
     <p>
-      The system answers a prioritization question:
-      <strong>which pages should a content team investigate first?</strong>
-      It does not automatically decide that a page should be rewritten,
-      deleted, merged, or refreshed.
+
+      The system answers one practical question:
+      <strong>
+        which pages should a content team investigate first?
+      </strong>
+
+      It is not designed to automatically decide that a page
+      should be deleted, rewritten, merged, or refreshed.
+
     </p>
 
   </div>
@@ -1057,128 +2520,230 @@
      DATA
 ========================================== -->
 
-<section id="data" class="container">
+<section
+  id="data"
+  class="container"
+>
 
   <span class="section-label">
+
     02 — Dataset
+
   </span>
 
+
   <h2>
+
     Search & Engagement Data
+
   </h2>
 
+
   <p class="section-description">
-    The study uses anonymized March 2026 data from the FlyRank ML Internship
-    warehouse. Search visibility, click behavior, ranking position, traffic,
-    engagement, and scrolling signals are used while client names, domains,
-    URLs, private queries, credentials, and raw private exports remain excluded.
+
+    The study uses anonymized March 2026 performance data from
+    the FlyRank ML Internship warehouse. Historical search
+    visibility and available engagement signals are used while
+    client names, domains, URLs, private queries, credentials,
+    and raw private exports remain excluded from the public
+    research output.
+
   </p>
+
 
   <div class="divider"></div>
 
 
+  <!-- DATA STATS -->
+
   <div class="stats-grid">
 
+
     <div class="stat-card">
+
       <div class="stat-number">
+
         9.84M
+
       </div>
 
       <div class="stat-label">
-        Daily performance rows
+
+        Daily performance records
+
       </div>
+
     </div>
 
 
     <div class="stat-card">
+
       <div class="stat-number">
+
         331,437
+
       </div>
 
       <div class="stat-label">
+
         Unique content pages
+
       </div>
+
     </div>
 
 
     <div class="stat-card">
+
       <div class="stat-number">
+
         55
+
       </div>
 
       <div class="stat-label">
+
         Anonymous clients
+
       </div>
+
     </div>
 
 
     <div class="stat-card">
+
       <div class="stat-number">
+
         31 Days
+
       </div>
 
       <div class="stat-label">
+
         March 1–31, 2026
+
       </div>
+
     </div>
+
 
   </div>
 
 
-  <div class="info-grid">
+  <!-- SIGNAL EXPLANATIONS -->
 
-    <div class="info-card">
-      <span>Visibility</span>
-      <h3>Impressions</h3>
+  <div class="signal-grid">
+
+
+    <div class="signal-card">
+
+      <span>
+        Visibility
+      </span>
+
+      <h3>
+        Impressions
+      </h3>
+
       <p>
-        Measures how frequently content appears within observed search results.
+
+        Measures how frequently a page appeared in observed
+        search results during the historical period.
+
       </p>
+
     </div>
 
 
-    <div class="info-card">
-      <span>Click Capture</span>
-      <h3>Clicks & CTR</h3>
+    <div class="signal-card">
+
+      <span>
+        Click Capture
+      </span>
+
+      <h3>
+        Clicks & CTR
+      </h3>
+
       <p>
-        Shows how effectively existing search visibility converts into clicks.
+
+        Shows how effectively existing search visibility
+        converted into clicks.
+
       </p>
+
     </div>
 
 
-    <div class="info-card">
-      <span>Ranking</span>
-      <h3>Average Position</h3>
+    <div class="signal-card">
+
+      <span>
+        Ranking
+      </span>
+
+      <h3>
+        Average Position
+      </h3>
+
       <p>
-        Provides directional evidence about where content appears in search.
+
+        Provides directional evidence about where content tends
+        to appear in search results.
+
       </p>
+
     </div>
 
 
-    <div class="info-card">
-      <span>Engagement</span>
-      <h3>Sessions & Scroll</h3>
+    <div class="signal-card">
+
+      <span>
+        Engagement
+      </span>
+
+      <h3>
+        Sessions & Scroll
+      </h3>
+
       <p>
-        Adds behavioral context where GA4 measurement is available.
+
+        Adds behavioral context where GA4 measurement is
+        available.
+
       </p>
+
     </div>
+
 
   </div>
 
+
+  <!-- CHARTS -->
 
   <div class="charts-grid">
 
+
     <div class="chart-card">
 
       <h3>
+
         Historical Data Coverage
+
       </h3>
 
       <p>
-        Search data is substantially more available than GA4 engagement data.
+
+        Search data has substantially stronger coverage than
+        GA4-derived engagement measurements.
+
       </p>
 
-      <div class="chart-wrapper">
-        <canvas id="coverageChart"></canvas>
+      <div class="chart-wrap">
+
+        <canvas
+          id="coverageChart"
+        ></canvas>
+
       </div>
 
     </div>
@@ -1187,18 +2752,28 @@
     <div class="chart-card">
 
       <h3>
+
         Future-Decline Target
+
       </h3>
 
       <p>
-        Final modeling sample contains 162,300 pages with historical visibility.
+
+        The final time-aware modeling sample contains 162,300
+        pages with measurable historical visibility.
+
       </p>
 
-      <div class="chart-wrapper">
-        <canvas id="targetChart"></canvas>
+      <div class="chart-wrap">
+
+        <canvas
+          id="targetChart"
+        ></canvas>
+
       </div>
 
     </div>
+
 
   </div>
 
@@ -1209,27 +2784,41 @@
      METHODOLOGY
 ========================================== -->
 
-<section id="method" class="container">
+<section
+  id="method"
+  class="container"
+>
 
   <span class="section-label">
+
     03 — Methodology
+
   </span>
 
+
   <h2>
+
     Time-Aware ML Workflow
+
   </h2>
 
+
   <p class="section-description">
-    Historical information and future outcomes are separated to reduce
-    leakage risk. The model receives only information available during the
-    historical observation period, while later data is reserved for defining
-    the future outcome.
+
+    Historical features and future outcomes are deliberately
+    separated to reduce leakage risk. Features are created only
+    from information available before the prediction point,
+    while later data is reserved for defining the observed
+    future outcome.
+
   </p>
+
 
   <div class="divider"></div>
 
 
   <div class="method-grid">
+
 
     <div class="method-card">
 
@@ -1242,7 +2831,10 @@
       </h3>
 
       <p>
-        March 1–21, 2026 is used to create historical model features.
+
+        March 1–21, 2026 is used to construct historical search
+        and engagement features.
+
       </p>
 
     </div>
@@ -1259,7 +2851,10 @@
       </h3>
 
       <p>
-        March 22–31 is used only to measure subsequent impression change.
+
+        March 22–31 is used only to measure subsequent changes
+        in daily impressions.
+
       </p>
 
     </div>
@@ -1276,7 +2871,10 @@
       </h3>
 
       <p>
-        Clients are separated between training and testing to reduce memorization.
+
+        Clients are separated between training and testing so
+        that no client appears in both sets.
+
       </p>
 
     </div>
@@ -1289,68 +2887,110 @@
       </div>
 
       <h3>
-        Ranked Actions
+        Action Engine
       </h3>
 
       <p>
-        Risk probabilities are translated into practical human-review priorities.
+
+        Predicted decline-risk probabilities are converted into
+        human-readable review priorities.
+
       </p>
 
     </div>
 
+
   </div>
 
 
-  <br>
+  <br><br>
 
 
   <h3>
-    Historical Features
+
+    Historical Model Features
+
   </h3>
+
 
   <div class="feature-list">
 
-    <span class="feature-tag">
+    <span class="feature">
       DAILY_IMPRESSIONS
     </span>
 
-    <span class="feature-tag">
+    <span class="feature">
       CTR
     </span>
 
-    <span class="feature-tag">
+    <span class="feature">
       AVG_POSITION
     </span>
 
-    <span class="feature-tag">
+    <span class="feature">
       DAILY_SESSIONS
     </span>
 
-    <span class="feature-tag">
+    <span class="feature">
       ENGAGEMENT_RATE
     </span>
 
-    <span class="feature-tag">
+    <span class="feature">
       DAILY_SCROLL_EVENTS
     </span>
 
   </div>
 
 
-  <div class="explanation-card">
+  <div class="info-box">
 
     <h3>
+
       Target Definition
+
     </h3>
 
     <p>
-      A page is labeled as an observed future-decline case when average daily
-      future impressions fall by at least <strong>20%</strong> compared with
-      its historical daily impressions.
+
+      A page is marked as an observed future-decline case when
+      its average daily future impressions are at least
+      <strong>
+        20% lower
+      </strong>
+      than its historical daily impressions.
+
+      Future-window variables are not provided to the model as
+      predictive features.
+
     </p>
 
+  </div>
+
+
+  <div class="info-box">
+
+    <h3>
+
+      Validation Design
+
+    </h3>
+
     <p>
-      Future-window variables are not used as predictive features.
+
+      GroupShuffleSplit was used with clients as the grouping
+      variable. The final evaluation contained
+      <strong>
+        36 training clients
+      </strong>,
+      <strong>
+        9 held-out clients
+      </strong>,
+      and
+      <strong>
+        zero client overlap
+      </strong>
+      between the two sets.
+
     </p>
 
   </div>
@@ -1362,88 +3002,142 @@
      RESULTS
 ========================================== -->
 
-<section id="results" class="container">
+<section
+  id="results"
+  class="container"
+>
 
   <span class="section-label">
+
     04 — Evaluation
+
   </span>
 
+
   <h2>
+
     Model Results
+
   </h2>
 
+
   <p class="section-description">
-    The Decision Tree is compared with a majority-class baseline using
-    completely held-out clients. Evaluation focuses on whether the model
-    adds useful decline detection rather than relying on accuracy alone.
+
+    A shallow Decision Tree is evaluated against a majority-class
+    baseline on completely held-out clients. The analysis focuses
+    on accuracy, precision, recall, F1 score, confusion-matrix
+    behavior, and model feature reliance rather than using
+    accuracy alone.
+
   </p>
+
 
   <div class="divider"></div>
 
 
-  <div class="metrics-grid">
+  <!-- METRICS -->
 
-    <div class="metric-card">
+  <div class="metric-grid">
+
+
+    <div class="metric">
+
       <span class="metric-number">
+
         72.71%
+
       </span>
 
       <span class="metric-name">
+
         Accuracy
+
       </span>
+
     </div>
 
 
-    <div class="metric-card">
+    <div class="metric">
+
       <span class="metric-number">
+
         57.98%
+
       </span>
 
       <span class="metric-name">
+
         Precision
+
       </span>
+
     </div>
 
 
-    <div class="metric-card">
+    <div class="metric">
+
       <span class="metric-number">
+
         12.71%
+
       </span>
 
       <span class="metric-name">
+
         Recall
+
       </span>
+
     </div>
 
 
-    <div class="metric-card">
+    <div class="metric">
+
       <span class="metric-number">
+
         20.85%
+
       </span>
 
       <span class="metric-name">
+
         F1 Score
+
       </span>
+
     </div>
+
 
   </div>
 
+
+  <!-- RESULT CHARTS -->
 
   <div class="charts-grid">
 
+
     <div class="chart-card">
 
       <h3>
+
         Baseline vs Decision Tree
+
       </h3>
 
       <p>
-        The majority baseline predicts no decline cases, while the Decision
-        Tree begins identifying a measurable subset.
+
+        The majority baseline detects no future-decline cases.
+        The Decision Tree begins identifying a measurable subset
+        while maintaining similar overall accuracy.
+
       </p>
 
-      <div class="chart-wrapper">
-        <canvas id="modelChart"></canvas>
+      <div class="chart-wrap">
+
+        <canvas
+          id="modelChart"
+        ></canvas>
+
       </div>
 
     </div>
@@ -1452,38 +3146,59 @@
     <div class="chart-card">
 
       <h3>
+
         Feature Importance
+
       </h3>
 
       <p>
-        Importance represents model reliance and should not be interpreted
-        as causal influence.
+
+        Feature importance represents how much the trained model
+        relied on each historical signal. It should not be read
+        as evidence of causal influence.
+
       </p>
 
-      <div class="chart-wrapper">
-        <canvas id="featureChart"></canvas>
+      <div class="chart-wrap">
+
+        <canvas
+          id="featureChart"
+        ></canvas>
+
       </div>
 
     </div>
+
 
   </div>
 
+
+  <!-- RESULT INTERPRETATION -->
 
   <div class="result-insight">
 
     <span>
+
       Main Finding
+
     </span>
 
     <h3>
+
       Useful precision, limited recall
+
     </h3>
 
     <p>
-      Precision of 57.98% indicates that the smaller set of pages flagged
-      by the model contains useful measured signal. However, recall is only
-      12.71%, meaning that many pages that later experience a substantial
-      decline are not detected.
+
+      Precision of 57.98% indicates that the smaller group of
+      pages flagged by the model contains useful measured signal.
+      However, recall is only 12.71%, meaning that many pages
+      that later experience substantial decline are still missed.
+      The model is therefore more appropriate for prioritizing a
+      focused review queue than for comprehensive decline
+      detection.
+
     </p>
 
   </div>
@@ -1492,19 +3207,31 @@
   <br><br>
 
 
+  <!-- CONFUSION MATRIX -->
+
   <h3>
+
     Confusion Matrix
+
   </h3>
+
 
   <div class="matrix-wrapper">
 
+
     <div class="matrix-title">
-      Held-Out Test Sample: 31,824 Pages
+
+      Held-Out Test Sample:
+      31,824 Pages
+
     </div>
+
 
     <div class="matrix">
 
+
       <div class="matrix-cell tn">
+
         <strong>
           21,995
         </strong>
@@ -1512,10 +3239,12 @@
         <span>
           True Negative
         </span>
+
       </div>
 
 
       <div class="matrix-cell fp">
+
         <strong>
           829
         </strong>
@@ -1523,10 +3252,12 @@
         <span>
           False Positive
         </span>
+
       </div>
 
 
       <div class="matrix-cell fn">
+
         <strong>
           7,856
         </strong>
@@ -1534,10 +3265,12 @@
         <span>
           False Negative
         </span>
+
       </div>
 
 
       <div class="matrix-cell tp">
+
         <strong>
           1,144
         </strong>
@@ -1545,131 +3278,316 @@
         <span>
           True Positive
         </span>
+
       </div>
+
 
     </div>
 
   </div>
+
+
+  <p class="section-description">
+
+    The confusion matrix reinforces the same interpretation:
+    the model correctly identifies a smaller set of positive
+    decline cases but misses many of the observed future-decline
+    pages.
+
+  </p>
 
 </section>
 
 
 <!-- ==========================================
-     ACTION ENGINE
+     RANKED RECOMMENDATIONS
 ========================================== -->
 
-<section id="actions" class="container">
+<section
+  id="recommendations"
+  class="container"
+>
 
   <span class="section-label">
-    05 — Action Engine
+
+    05 — Decision Support
+
   </span>
 
+
   <h2>
+
     Ranked Review Queue
+
   </h2>
 
+
   <p class="section-description">
-    Decline-risk probabilities are converted into priority categories to
-    help content teams decide where to investigate first. Recommendations
-    are accompanied by reason codes so reviewers can understand the measured
-    signals behind each priority.
+
+    Model probabilities are converted into practical review
+    categories for the 31,824 held-out pages. The queue helps a
+    content team decide where human investigation should begin,
+    while the final editorial decision remains with the reviewer.
+
   </p>
+
 
   <div class="divider"></div>
 
 
-  <div class="explanation-card">
+  <!-- STATUS -->
 
-    <h3>
-      How to Read the Queue
-    </h3>
+  <div class="ranked-status">
 
-    <p>
-      <strong>Review First</strong> identifies the strongest measured
-      decline-risk signals.
-      <strong>Monitor</strong> represents moderate signals that may warrant
-      observation.
-      <strong>Lower Priority</strong> represents weaker measured risk under
-      the current model.
-    </p>
-
-    <p>
-      These categories prioritize investigation only. They do not instruct
-      the system to automatically rewrite, delete, merge, or publish content.
-    </p>
+    31,824 held-out content pages were successfully scored and
+    ranked for human review.
 
   </div>
 
 
-  <div class="priority-grid">
+  <!-- RANKED TABLE -->
 
-    <div class="priority-card review-card">
+  <div class="table-wrapper">
 
-      <h3>
-        Review First
-      </h3>
-
-      <strong>
-        7,988
-      </strong>
-
-      <p>
-        Risk score ≥ 0.4388
-      </p>
-
-    </div>
+    <table class="ranked-table">
 
 
-    <div class="priority-card monitor-card">
+      <thead>
 
-      <h3>
-        Monitor
-      </h3>
+        <tr>
 
-      <strong>
-        10,811
-      </strong>
+          <th>
+            Rank
+          </th>
 
-      <p>
-        Risk score from 0.3479 to below 0.4388
-      </p>
+          <th>
+            Action
+          </th>
 
-    </div>
+          <th>
+            Risk Threshold
+          </th>
+
+          <th>
+            Pages
+          </th>
+
+          <th>
+            Interpretation
+          </th>
+
+        </tr>
+
+      </thead>
 
 
-    <div class="priority-card low-card">
+      <tbody>
 
-      <h3>
-        Lower Priority
-      </h3>
 
-      <strong>
-        13,025
-      </strong>
+        <!-- REVIEW FIRST -->
 
-      <p>
-        Risk score below 0.3479
-      </p>
+        <tr>
 
-    </div>
+          <td>
+
+            <span class="rank-number rank-one">
+              1
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="action-badge review">
+
+              Review First
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="threshold">
+
+              ≥ 0.4388
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="page-count">
+
+              7,988
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            Strongest measured decline-risk signal. These pages
+            should be investigated first by the content team.
+
+          </td>
+
+        </tr>
+
+
+        <!-- MONITOR -->
+
+        <tr>
+
+          <td>
+
+            <span class="rank-number rank-two">
+              2
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="action-badge monitor">
+
+              Monitor
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="threshold">
+
+              0.3479 – &lt; 0.4388
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="page-count">
+
+              10,811
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            Moderate measured risk. Continue observing these
+            pages and inspect context before deciding whether a
+            content change is needed.
+
+          </td>
+
+        </tr>
+
+
+        <!-- LOWER PRIORITY -->
+
+        <tr>
+
+          <td>
+
+            <span class="rank-number rank-three">
+              3
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="action-badge lower">
+
+              Lower Priority
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="threshold">
+
+              &lt; 0.3479
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="page-count">
+
+              13,025
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            Weaker measured decline-risk signal under the
+            current model and therefore lower immediate review
+            priority.
+
+          </td>
+
+        </tr>
+
+
+      </tbody>
+
+
+    </table>
 
   </div>
 
+
+  <!-- ACTION CHART + REASON CODES -->
 
   <div class="charts-grid">
 
+
     <div class="chart-card">
 
       <h3>
+
         Review Queue Distribution
+
       </h3>
 
       <p>
-        Distribution of the 31,824 held-out pages across workflow priorities.
+
+        Distribution of the 31,824 held-out pages across the
+        three review-priority categories.
+
       </p>
 
-      <div class="chart-wrapper">
-        <canvas id="actionChart"></canvas>
+      <div class="chart-wrap">
+
+        <canvas
+          id="actionChart"
+        ></canvas>
+
       </div>
 
     </div>
@@ -1678,46 +3596,99 @@
     <div class="chart-card">
 
       <h3>
+
         Human-Readable Reason Codes
+
       </h3>
 
       <p>
-        Reason codes make the ranking easier to inspect and explain.
+
+        Individual pages can receive one or more reason codes
+        describing the historical measurements associated with
+        their review priority.
+
       </p>
+
 
       <div class="reason-codes">
 
-        <span class="reason-code">
+
+        <span class="reason">
+
           HIGH_VISIBILITY_AT_RISK
+
         </span>
 
-        <span class="reason-code">
+
+        <span class="reason">
+
           LOW_CLICK_CAPTURE
+
         </span>
 
-        <span class="reason-code">
+
+        <span class="reason">
+
           WEAK_SEARCH_POSITION
+
         </span>
 
-        <span class="reason-code">
+
+        <span class="reason">
+
           LOW_ENGAGEMENT
+
         </span>
 
-        <span class="reason-code">
+
+        <span class="reason">
+
           DECLINE_RISK_SIGNAL
+
         </span>
+
 
       </div>
 
-      <br>
 
       <p>
-        The presence of a reason code does not prove why performance changed.
-        It provides a directional explanation for why a page received its
-        review priority.
+
+        Reason codes make the queue easier to inspect, but they
+        do not prove why a page declined or guarantee that a
+        specific content edit will improve performance.
+
       </p>
 
     </div>
+
+
+  </div>
+
+
+  <div class="info-box">
+
+    <h3>
+
+      Why this is a review queue
+
+    </h3>
+
+    <p>
+
+      A high risk score means
+      <strong>
+        review the page first
+      </strong>,
+      not
+      <strong>
+        automatically refresh the page
+      </strong>.
+
+      Search demand, seasonality, technical issues, indexing,
+      analytics coverage, page purpose, and content quality
+      should all be inspected before any material change is made.
+
+    </p>
 
   </div>
 
@@ -1728,636 +3699,25 @@
      LIMITATIONS
 ========================================== -->
 
-<section id="limitations" class="container">
+<section
+  id="limitations"
+  class="container"
+>
 
   <span class="section-label">
+
     06 — Honest Framing
+
   </span>
 
-  <h2>
-    Limitations
-  </h2>
-
-  <p class="section-description">
-    The system is intentionally framed as decision-support. The available
-    evidence supports prioritization, but it does not establish that
-    refreshing a page will cause improved search performance.
-  </p>
-
-  <div class="divider"></div>
-
-
-  <div class="limitations-grid">
-
-    <div class="limitation-card">
-
-      <strong>
-        Proxy Outcome
-      </strong>
-
-      <p>
-        Future impression decline is measurable, but it is not a ground-truth
-        label stating that a page requires refreshing.
-      </p>
-
-    </div>
-
-
-    <div class="limitation-card">
-
-      <strong>
-        Short Observation Period
-      </strong>
-
-      <p>
-        The analysis uses March 2026 only, limiting conclusions about
-        longer-term behavior.
-      </p>
-
-    </div>
-
-
-    <div class="limitation-card">
-
-      <strong>
-        Observational Evidence
-      </strong>
-
-      <p>
-        Associations between historical signals and future decline do not
-        establish causation.
-      </p>
-
-    </div>
-
-
-    <div class="limitation-card">
-
-      <strong>
-        Low Recall
-      </strong>
-
-      <p>
-        Recall is 12.71%, so many observed future-decline pages remain
-        undetected.
-      </p>
-
-    </div>
-
-
-    <div class="limitation-card">
-
-      <strong>
-        GA4 Coverage
-      </strong>
-
-      <p>
-        Historical GA4 availability is approximately 10.16%, so engagement
-        signals require cautious interpretation.
-      </p>
-
-    </div>
-
-
-    <div class="limitation-card">
-
-      <strong>
-        Generalization
-      </strong>
-
-      <p>
-        Model behavior may change across new clients, content types,
-        search conditions, and later reporting periods.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ==========================================
-     PRACTICAL TAKEAWAY
-========================================== -->
-
-<section class="container">
-
-  <div class="takeaway">
-
-    <h2>
-      Practical Takeaway
-    </h2>
-
-    <p>
-      The main value of this system is prioritization rather than automation.
-    </p>
-
-    <p>
-      Historical visibility, CTR, search position, and supporting engagement
-      signals can help identify a smaller set of pages that deserve earlier
-      investigation.
-    </p>
-
-    <p>
-      Machine learning ranks the opportunities; human reviewers investigate
-      the context and decide whether monitoring, updating, rewriting, or no
-      action is appropriate.
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- ==========================================
-     REPRODUCIBILITY
-========================================== -->
-
-<section id="reproducibility" class="container">
-
-  <span class="section-label">
-    07 — Reproducibility
-  </span>
 
   <h2>
-    Research Artifacts
+
+    Limitations & Honest Framing
+
   </h2>
 
-  <p class="section-description">
-    Supporting notebooks, validation checks, feature engineering,
-    recommendation logic, and the capstone workflow are maintained in the
-    public internship repository.
-  </p>
-
-  <div class="divider"></div>
-
-
-  <div class="link-card">
-
-    <h3>
-      GitHub Repository
-    </h3>
-
-    <a
-      href="https://github.com/pakizahassan/flyrank-ml-internship"
-      target="_blank"
-    >
-      github.com/pakizahassan/flyrank-ml-internship
-    </a>
-
-  </div>
-
-
-  <div class="link-card">
-
-    <h3>
-      Capstone Notebook
-    </h3>
-
-    <a
-      href="https://github.com/pakizahassan/flyrank-ml-internship/blob/main/work/notebooks/capstone.ipynb"
-      target="_blank"
-    >
-      View the complete capstone notebook
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- ==========================================
-     ACKNOWLEDGMENT
-========================================== -->
-
-<section class="container">
-
-  <span class="section-label">
-    08 — Data Credit
-  </span>
-
-  <h2>
-    Acknowledgments
-  </h2>
-
-  <div class="divider"></div>
 
   <p class="section-description">
-    This project was completed as part of the
-    <strong>FlyRank Machine Learning Internship</strong>.
-    The research is built on the FlyRank ML Internship dataset and follows
-    public-safe reporting practices.
-  </p>
 
-  <div class="link-card">
-
-    <h3>
-      Data & Program Credit
-    </h3>
-
-    <a
-      href="https://flyrank.ai"
-      target="_blank"
-    >
-      FlyRank
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- ==========================================
-     FOOTER
-========================================== -->
-
-<footer>
-
-  <strong>
-    Pakiza Hassan
-  </strong>
-
-  <br>
-
-  BS Artificial Intelligence
-
-  <br>
-
-  FlyRank Machine Learning Internship • 2026
-
-</footer>
-
-
-<!-- ==========================================
-     CHART JAVASCRIPT
-========================================== -->
-
-<script>
-
-  Chart.defaults.font.family = "Inter";
-  Chart.defaults.color = "#69758a";
-
-  const teal = "#749da1";
-  const olive = "#b4be89";
-  const coral = "#eb9191";
-  const pink = "#f5768d";
-  const purple = "#7067e6";
-
-
-  /* ========================================
-     DATA COVERAGE
-  ======================================== */
-
-  new Chart(
-    document.getElementById("coverageChart"),
-    {
-      type: "bar",
-
-      data: {
-        labels: [
-          "GSC Coverage",
-          "GA4 Coverage"
-        ],
-
-        datasets: [{
-          data: [
-            70.18,
-            10.16
-          ],
-
-          backgroundColor: [
-            teal,
-            pink
-          ],
-
-          borderRadius: 9
-        }]
-      },
-
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-
-        plugins: {
-          legend: {
-            display: false
-          },
-
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return context.raw + "%";
-              }
-            }
-          }
-        },
-
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-
-            ticks: {
-              callback: function(value) {
-                return value + "%";
-              }
-            },
-
-            grid: {
-              color: "#edf0f5"
-            }
-          },
-
-          x: {
-            grid: {
-              display: false
-            }
-          }
-        }
-      }
-    }
-  );
-
-
-  /* ========================================
-     TARGET DISTRIBUTION
-  ======================================== */
-
-  new Chart(
-    document.getElementById("targetChart"),
-    {
-      type: "doughnut",
-
-      data: {
-        labels: [
-          "No Major Decline",
-          "Future Decline"
-        ],
-
-        datasets: [{
-          data: [
-            101460,
-            60840
-          ],
-
-          backgroundColor: [
-            olive,
-            coral
-          ],
-
-          borderWidth: 5,
-          borderColor: "#ffffff"
-        }]
-      },
-
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "67%",
-
-        plugins: {
-          legend: {
-            position: "bottom"
-          }
-        }
-      }
-    }
-  );
-
-
-  /* ========================================
-     BASELINE VS MODEL
-  ======================================== */
-
-  new Chart(
-    document.getElementById("modelChart"),
-    {
-      type: "bar",
-
-      data: {
-
-        labels: [
-          "Accuracy",
-          "Precision",
-          "Recall",
-          "F1"
-        ],
-
-        datasets: [
-
-          {
-            label: "Majority Baseline",
-
-            data: [
-              71.72,
-              0,
-              0,
-              0
-            ],
-
-            backgroundColor: olive,
-            borderRadius: 7
-          },
-
-          {
-            label: "Decision Tree",
-
-            data: [
-              72.71,
-              57.98,
-              12.71,
-              20.85
-            ],
-
-            backgroundColor: purple,
-            borderRadius: 7
-          }
-
-        ]
-      },
-
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-
-        plugins: {
-          legend: {
-            position: "bottom"
-          }
-        },
-
-        scales: {
-
-          y: {
-            beginAtZero: true,
-            max: 100,
-
-            ticks: {
-              callback: function(value) {
-                return value + "%";
-              }
-            },
-
-            grid: {
-              color: "#edf0f5"
-            }
-          },
-
-          x: {
-            grid: {
-              display: false
-            }
-          }
-
-        }
-      }
-    }
-  );
-
-
-  /* ========================================
-     FEATURE IMPORTANCE
-  ======================================== */
-
-  new Chart(
-    document.getElementById("featureChart"),
-    {
-      type: "bar",
-
-      data: {
-
-        labels: [
-          "Daily Impressions",
-          "CTR",
-          "Avg Position",
-          "Daily Sessions",
-          "Engagement Rate",
-          "Scroll Events"
-        ],
-
-        datasets: [{
-          data: [
-            59.06,
-            26.43,
-            11.17,
-            3.35,
-            0,
-            0
-          ],
-
-          backgroundColor: [
-            purple,
-            teal,
-            coral,
-            pink,
-            "#d9dce4",
-            "#d9dce4"
-          ],
-
-          borderRadius: 7
-        }]
-      },
-
-      options: {
-        indexAxis: "y",
-        responsive: true,
-        maintainAspectRatio: false,
-
-        plugins: {
-
-          legend: {
-            display: false
-          },
-
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return context.raw + "% importance";
-              }
-            }
-          }
-
-        },
-
-        scales: {
-
-          x: {
-            beginAtZero: true,
-
-            ticks: {
-              callback: function(value) {
-                return value + "%";
-              }
-            },
-
-            grid: {
-              color: "#edf0f5"
-            }
-          },
-
-          y: {
-            grid: {
-              display: false
-            }
-          }
-
-        }
-      }
-    }
-  );
-
-
-  /* ========================================
-     ACTION QUEUE
-  ======================================== */
-
-  new Chart(
-    document.getElementById("actionChart"),
-    {
-      type: "doughnut",
-
-      data: {
-
-        labels: [
-          "Review First",
-          "Monitor",
-          "Lower Priority"
-        ],
-
-        datasets: [{
-          data: [
-            7988,
-            10811,
-            13025
-          ],
-
-          backgroundColor: [
-            pink,
-            olive,
-            teal
-          ],
-
-          borderWidth: 5,
-          borderColor: "#ffffff"
-        }]
-      },
-
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "65%",
-
-        plugins: {
-          legend: {
-            position: "bottom"
-          }
-        }
-      }
-    }
-  );
-
-</script>
-
-</body>
-</html>
+    The available
