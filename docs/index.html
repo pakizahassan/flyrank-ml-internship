@@ -1,1 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Refresh Opportunity Scoring | FlyRank ML Capstone</title>
+
+  <style>
+    :root {
+      --teal: #749da1;
+      --green: #b4be89;
+      --coral: #eb9191;
+      --pink: #f5768d;
+      --dark: #263238;
+      --text: #445055;
+      --light: #f8faf9;
+      --border: #e4e9e7;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.7;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 14px;
+    }
+
+    nav a:hover {
+      color: var(--pink);
+    }
+
+    .hero {
+      padding: 90px 24px 75px;
+      background:
+        radial-gradient(circle at top right, rgba(245,118,141,0.18), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(116,157,161,0.20), transparent 35%),
+        #fbfcfc;
+    }
+
+    .hero-inner {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(180,190,137,0.28);
+      color: #5b6742;
+      padding: 7px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      color: var(--dark);
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.05;
+      margin: 22px 0;
+      max-width: 850px;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      max-width: 800px;
+      color: #637075;
+    }
+
+    .hero-meta {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 9px 14px;
+      border-radius: 30px;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 25px 24px 80px;
+    }
+
+    section {
+      padding: 65px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 34px;
+      color: var(--dark);
+      margin: 0 0 20px;
+    }
+
+    h3 {
+      color: var(--teal);
+      margin-top: 30px;
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #5c686c;
+    }
+
+    .highlight {
+      border-left: 5px solid var(--pink);
+      background: rgba(245,118,141,.08);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 28px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      margin: 28px 0;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      background: var(--white);
+    }
+
+    .metric {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--dark);
+      margin: 4px 0;
+    }
+
+    .metric-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: #758085;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    th {
+      background: var(--teal);
+      color: white;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:nth-child(even) {
+      background: #fafbfa;
+    }
+
+    .chart {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 28px 0;
+    }
+
+    .bar-row {
+      margin: 16px 0;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .bar-track {
+      height: 16px;
+      background: #eef1ef;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 20px;
+    }
+
+    .teal { background: var(--teal); }
+    .green { background: var(--green); }
+    .coral { background: var(--coral); }
+    .pink { background: var(--pink); }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 14px;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .window {
+      border-radius: 16px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .past {
+      background: rgba(116,157,161,.13);
+      border: 1px solid rgba(116,157,161,.4);
+    }
+
+    .future {
+      background: rgba(245,118,141,.11);
+      border: 1px solid rgba(245,118,141,.4);
+    }
+
+    .arrow {
+      text-align: center;
+      font-size: 30px;
+      color: var(--teal);
+    }
+
+    .reason {
+      display: inline-block;
+      padding: 7px 11px;
+      border-radius: 8px;
+      background: rgba(116,157,161,.12);
+      color: #4f7377;
+      font-family: monospace;
+      font-size: 13px;
+      margin: 4px;
+    }
+
+    .limitations li {
+      margin-bottom: 12px;
+    }
+
+    .links a {
+      display: inline-block;
+      padding: 11px 16px;
+      margin: 5px 8px 5px 0;
+      border-radius: 10px;
+      text-decoration: none;
+      color: white;
+      background: var(--teal);
+    }
+
+    .links a.secondary {
+      background: var(--pink);
+    }
+
+    footer {
+      background: var(--dark);
+      color: #dbe3e4;
+      padding: 50px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    footer a {
+      color: #ffd6dd;
+    }
+
+    @media (max-width: 700px) {
+      .nav-links {
+        display: none;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        transform: rotate(90deg);
+      }
+
+      table {
+        font-size: 13px;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">FlyRank ML Capstone</div>
+
+    <div class="nav-links">
+      <a href="#abstract">Abstract</a>
+      <a href="#data">Data</a>
+      <a href="#methodology">Method</a>
+      <a href="#results">Results</a>
+      <a href="#recommendations">Recommendations</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <span class="eyebrow">Refresh / Content Opportunity Scoring</span>
+
+    <h1>
+      Identifying Content Refresh Opportunities from Search and Engagement Signals
+    </h1>
+
+    <p class="hero-subtitle">
+      A time-aware machine-learning study for prioritizing content pages
+      that show measurable signals of future search-performance decline.
+    </p>
+
+    <div class="hero-meta">
+      <span class="pill">March 2026</span>
+      <span class="pill">162,300 modeled pages</span>
+      <span class="pill">Client-grouped validation</span>
+      <span class="pill">Decision Tree</span>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+<section id="abstract">
+
+  <h2>Abstract</h2>
+
+  <p class="lead">
+    Content teams often manage far more pages than they can review manually,
+    creating a prioritization problem: which pages deserve attention first?
+  </p>
+
+  <p>
+    This study uses historical Google Search Console and GA4 signals from
+    the FlyRank ML Internship warehouse to identify pages showing measurable
+    signals of later impression decline.
+    Historical features were calculated from March 1–21, 2026, while the
+    outcome was measured separately from March 22–31 to reduce future-data
+    leakage.
+    A shallow Decision Tree was evaluated against a majority-class baseline
+    using a client-grouped holdout split.
+    The model achieved 72.71% accuracy, 57.98% precision, 12.71% recall,
+    and a 20.85% F1 score.
+    The resulting model is used as a directional decision-support tool that
+    ranks held-out pages for human review rather than claiming that refreshing
+    a page will cause its performance to improve.
+  </p>
+
+</section>
+
+
+<section id="introduction">
+
+  <h2>1. Introduction & Problem Statement</h2>
+
+  <p>
+    Content refresh work is a resource-allocation problem. A content team
+    may manage thousands of pages, but only a limited number can be reviewed,
+    rewritten, or optimized at any one time.
+  </p>
+
+  <div class="highlight">
+    <strong>Research question:</strong><br>
+    Which content pages show the strongest measurable signals of refresh
+    opportunity, and how can those pages be ranked for human review using
+    historical search and engagement data?
+  </div>
+
+  <p>
+    The goal is not to automatically decide that a page must be refreshed.
+    Instead, this work supports the decision of which pages should be
+    investigated first.
+  </p>
+
+</section>
+
+
+<section id="data">
+
+  <h2>2. Data</h2>
+
+  <p>
+    The study uses the FlyRank ML Internship warehouse dataset hosted on
+    Hugging Face, specifically the
+    <code>fact_content_daily_performance</code> table for March 2026.
+  </p>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="metric-label">Raw daily rows</div>
+      <div class="metric">9.84M</div>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Unique pages</div>
+      <div class="metric">331,437</div>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Unique clients</div>
+      <div class="metric">55</div>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Modeling pages</div>
+      <div class="metric">162,300</div>
+    </div>
+
+  </div>
+
+  <h3>Public-safe identifiers</h3>
+
+  <p>
+    <code>content_hash_id</code> was used as the anonymous page identifier
+    and <code>client_hash_id</code> was used for client-grouped validation.
+    Client names, domains, page URLs, private queries, credentials, and
+    identifying information were excluded from the public analysis.
+  </p>
+
+  <h3>Analytics coverage</h3>
+
+  <div class="chart">
+
+    <div class="bar-row">
+      <div class="bar-label">
+        <span>Google Search Console</span>
+        <span>70.18%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar teal" style="width:70.18%"></div>
+      </div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">
+        <span>GA4</span>
+        <span>10.16%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar pink" style="width:10.16%"></div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="methodology">
+
+  <h2>3. Methodology</h2>
+
+  <h3>Time-aware design</h3>
+
+  <div class="timeline">
+
+    <div class="window past">
+      <strong>Feature Window</strong><br>
+      March 1–21, 2026<br><br>
+      Historical search & engagement signals
+    </div>
+
+    <div class="arrow">→</div>
+
+    <div class="window future">
+      <strong>Outcome Window</strong><br>
+      March 22–31, 2026<br><br>
+      Later impression performance
+    </div>
+
+  </div>
+
+  <h3>Outcome definition</h3>
+
+  <p>
+    A page was labeled <strong>future decline</strong> when its average daily
+    impressions during the outcome window were at least 20% lower than its
+    average daily impressions during the feature window.
+  </p>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="metric-label">No major decline</div>
+      <div class="metric">101,460</div>
+      <p>62.51% of modeled pages</p>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Future decline</div>
+      <div class="metric">60,840</div>
+      <p>37.49% of modeled pages</p>
+    </div>
+
+  </div>
+
+  <h3>Historical model features</h3>
+
+  <ul>
+    <li>Average daily impressions</li>
+    <li>Historical click-through rate (CTR)</li>
+    <li>Average search position</li>
+    <li>Average daily GA4 sessions</li>
+    <li>Historical engagement rate</li>
+    <li>Average daily scroll events</li>
+  </ul>
+
+  <p>
+    No variables from the March 22–31 outcome window were used as model
+    inputs. Client and page identifiers were also excluded from predictive
+    features.
+  </p>
+
+  <h3>Validation</h3>
+
+  <p>
+    A grouped holdout split was used so that clients appearing in training
+    data did not appear in test data.
+  </p>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="metric-label">Training pages</div>
+      <div class="metric">130,476</div>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Test pages</div>
+      <div class="metric">31,824</div>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Training clients</div>
+      <div class="metric">36</div>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Test clients</div>
+      <div class="metric">9</div>
+    </div>
+
+  </div>
+
+  <div class="highlight">
+    Client overlap between training and test sets: <strong>0</strong>.
+  </div>
+
+  <h3>Model & baseline</h3>
+
+  <p>
+    A shallow Decision Tree classifier was compared with a majority-class
+    baseline on the same held-out test set.
+  </p>
+
+</section>
+
+
+<section id="results">
+
+  <h2>4. Results</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Accuracy</th>
+        <th>Precision</th>
+        <th>Recall</th>
+        <th>F1 Score</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Majority Baseline</td>
+        <td>71.72%</td>
+        <td>0.00%</td>
+        <td>0.00%</td>
+        <td>0.00%</td>
+      </tr>
+
+      <tr>
+        <td><strong>Decision Tree</strong></td>
+        <td><strong>72.71%</strong></td>
+        <td><strong>57.98%</strong></td>
+        <td><strong>12.71%</strong></td>
+        <td><strong>20.85%</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The Decision Tree improved on the majority baseline and produced useful
+    precision, but recall remained low. This means that predictions labeled
+    as decline opportunities were often meaningful, while many actual
+    decline cases were still missed.
+  </p>
+
+  <h3>Confusion matrix</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Predicted No Decline</th>
+        <th>Predicted Decline</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Actual No Decline</td>
+        <td>21,995</td>
+        <td>829</td>
+      </tr>
+
+      <tr>
+        <td>Actual Future Decline</td>
+        <td>7,856</td>
+        <td>1,144</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Feature importance</h3>
+
+  <div class="chart">
+
+    <div class="bar-row">
+      <div class="bar-label">
+        <span>Past daily impressions</span>
+        <span>59.06%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar teal" style="width:59.06%"></div>
+      </div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">
+        <span>Past CTR</span>
+        <span>26.43%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar green" style="width:26.43%"></div>
+      </div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">
+        <span>Past average position</span>
+        <span>11.17%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar coral" style="width:11.17%"></div>
+      </div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">
+        <span>Past daily sessions</span>
+        <span>3.35%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar pink" style="width:3.35%"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <p>
+    Feature importance describes how the fitted Decision Tree made its
+    decisions. It should not be interpreted as evidence that changing these
+    signals would cause a page's future performance to change.
+  </p>
+
+</section>
+
+
+<section id="limitations">
+
+  <h2>5. Limitations & Honest Framing</h2>
+
+  <ul class="limitations">
+    <li>
+      <strong>The outcome is a proxy.</strong>
+      A 20% future impression decline does not prove that a page requires
+      refreshing.
+    </li>
+
+    <li>
+      <strong>The time window is short.</strong>
+      The analysis covers only March 2026.
+    </li>
+
+    <li>
+      <strong>The study is observational.</strong>
+      Relationships identified by the model do not establish causation.
+    </li>
+
+    <li>
+      <strong>Refresh impact was not directly measured.</strong>
+      A high score does not guarantee that updating a page will improve
+      future rankings or traffic.
+    </li>
+
+    <li>
+      <strong>GA4 coverage is limited.</strong>
+      Average GA4 availability was only 10.16% across the modeled historical
+      data, which reduces the information available to engagement features.
+    </li>
+
+    <li>
+      <strong>Recall is limited.</strong>
+      The Decision Tree identified only 12.71% of the observed future-decline
+      cases in the held-out test set.
+    </li>
+  </ul>
+
+  <div class="highlight">
+    The model should be interpreted as a
+    <strong>directional decision-support system</strong> for prioritizing
+    human review — not as an automated refresh decision or a causal claim.
+  </div>
+
+</section>
+
+
+<section id="recommendations">
+
+  <h2>6. Ranked Recommendations</h2>
+
+  <p>
+    The fitted Decision Tree generated an opportunity score for each of the
+    31,824 pages in the held-out client test set.
+  </p>
+
+  <p>
+    Pages were ranked by opportunity score and divided into three practical
+    review groups.
+  </p>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="metric-label">Review First</div>
+      <div class="metric" style="color:#f5768d">7,988</div>
+      <p>Highest relative opportunity scores</p>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Monitor</div>
+      <div class="metric" style="color:#eb9191">10,811</div>
+      <p>Moderate relative opportunity scores</p>
+    </div>
+
+    <div class="card">
+      <div class="metric-label">Lower Priority</div>
+      <div class="metric" style="color:#87915f">13,025</div>
+      <p>Lower relative opportunity scores</p>
+    </div>
+
+  </div>
+
+  <h3>Action thresholds</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Opportunity Score</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Review First</td>
+        <td>≥ 0.4388</td>
+      </tr>
+
+      <tr>
+        <td>Monitor</td>
+        <td>≥ 0.3479 and &lt; 0.4388</td>
+      </tr>
+
+      <tr>
+        <td>Lower Priority</td>
+        <td>&lt; 0.3479</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Reason codes</h3>
+
+  <p>
+    Ranked pages also receive interpretable reason codes so a reviewer can
+    understand what historical pattern contributed to the recommendation.
+  </p>
+
+  <div>
+    <span class="reason">HIGH_VISIBILITY_AT_RISK</span>
+    <span class="reason">LOW_CLICK_CAPTURE</span>
+    <span class="reason">WEAK_SEARCH_POSITION</span>
+    <span class="reason">LOW_ENGAGEMENT</span>
+    <span class="reason">DECLINE_RISK_SIGNAL</span>
+  </div>
+
+  <p>
+    These labels are prioritization cues rather than judgments about content
+    quality.
+  </p>
+
+</section>
+
+
+<section id="reproducibility">
+
+  <h2>7. Reproducibility</h2>
+
+  <p>
+    The analysis, feature engineering, validation design, model evaluation,
+    and recommendation workflow are available in the project repository.
+  </p>
+
+  <div class="links">
+
+    <a
+      href="https://github.com/pakizahassan/flyrank-ml-internship"
+      target="_blank">
+      View GitHub Repository
+    </a>
+
+    <a
+      class="secondary"
+      href="https://github.com/pakizahassan/flyrank-ml-internship/blob/main/work/notebooks/capstone.ipynb"
+      target="_blank">
+      View Capstone Notebook
+    </a>
+
+  </div>
+
+</section>
+
+
+<section id="takeaway">
+
+  <h2>8. Practical Takeaway</h2>
+
+  <p class="lead">
+    The strongest value of this project is not automatic prediction — it is
+    prioritization.
+  </p>
+
+  <p>
+    The model converts historical search and engagement signals into a
+    ranked review queue that allows a content team to focus attention on
+    a smaller set of pages showing stronger observed decline-risk signals.
+  </p>
+
+  <p>
+    Because recall remains limited and the outcome is a proxy, human
+    judgment remains essential.
+  </p>
+
+</section>
+
+
+<section id="acknowledgments">
+
+  <h2>9. Acknowledgments & Data Credit</h2>
+
+  <p>
+    Built on the
+    <a href="https://flyrank.ai" target="_blank">
+      FlyRank ML Internship dataset
+    </a>.
+  </p>
+
+  <p>
+    This capstone was completed as part of the FlyRank Machine Learning
+    Internship's Google Search Ranking & Discoverability track.
+  </p>
+
+</section>
+
+</main>
+
+
+<footer>
+  <div class="footer-inner">
+
+    <strong>Refresh / Content Opportunity Scoring</strong>
+
+    <p>
+      Machine Learning Capstone · March 2026 Data
+    </p>
+
+    <p>
+      Results are observational and intended for directional
+      decision-support.
+    </p>
+
+  </div>
+</footer>
+
+</body>
+</html>
